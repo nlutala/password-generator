@@ -1,5 +1,5 @@
-# Password Generator
-This program generates a password between 6 and 15 characters.
+# password-generator
+A program that randomly generates a password of 6 to 15 characters (as specified by the user). This is an open-source project anyone can contribute to.
 
 ## Description
 This program was created as a small project to help me familiarise myself with string manipulation. 
@@ -10,11 +10,11 @@ This program was created as a small project to help me familiarise myself with s
 * Please ensure that you have Python 3.8.5 or above installed on your computer.
 
 #### Installing
-* Open https://github.com/nlutala/password-generator in a new tab
-* Press the green code button and press "Download ZIP" 
+* Open https://github.com/nlutala/password-generator in a new tab.
+* Press the green code button and press "Download ZIP".
 
 #### Executing program
-* Once you have downloaded the program, you can open it with any text editor and simply press run
+* Once you have downloaded the program, you can open it with a suitable text editor of your choice and simply press run.
 
 #### Author
 Nathan Lutala, nlutala

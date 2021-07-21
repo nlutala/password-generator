@@ -1,7 +1,8 @@
 import random
 import string
 
-characters = str(1234567890) + string.ascii_letters + "!£$%&@#?"
+special = "!£$%&@#?"
+characters = "1234567890" + string.ascii_letters + special
 
 def checkNumber(userInput):
     '''
@@ -30,6 +31,18 @@ def containsNumber(password):
             continue
     return False
 
+def containsSpecial(password):
+    '''
+        parameter: password (a string)
+        return True if the password generated contains a special character.
+    '''
+    for i in range(0,len(password)):
+        if password[i] in special:
+            return True
+        else:
+            continue
+    return False
+
 def generatePassword(integer):
     '''
         parameter: integer (a whole number to indicate how many
@@ -41,10 +54,10 @@ def generatePassword(integer):
     if checkNumber(integer) >= 6 and checkNumber(integer) <= 15:
         for i in range(checkNumber(integer)):
             password += characters[random.randint(0, len(characters)-1)]
-        if containsNumber(password) == True:
+        if containsNumber(password) and containsSpecial(password) == True:
             print("\nYour generated password is: " + password + "\n")
         else:
-            password = password[0:len(password)-1] + str(random.randint(0,9))
+            password = password[0:len(password)-2] + str(random.randint(0,9)) + special[random.randint(0,len(special))]
             print("\nYour generated password is: " + password + "\n")
     else:
         print("Please enter a number between 6 and 15.\n")
