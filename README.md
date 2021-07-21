@@ -14,7 +14,7 @@ This program was created as a small project to help me familiarise myself with s
 * Press the green code button and press "Download ZIP".
 
 #### Executing program
-* Once you have downloaded the program, you can open it with a suitable text editor of your choice and simply press run.
+* Once you have downloaded the program, you can open it with a suitable text editor of your choice and run it.
 
 #### Author
 Nathan Lutala, nlutala
