@@ -1,5 +1,5 @@
 # password-generator
-A program that randomly generates a password of 6 to 15 characters (as specified by the user). This is an open-source project anyone can contribute to.
+A program that randomly generates a password of 6 to 15 characters (as specified by the user).
 
 ## Description
 This program was created as a small project to help me familiarise myself with string manipulation. 
