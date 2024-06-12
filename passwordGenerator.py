@@ -1,86 +1,70 @@
-import random
+'''
+Generates a random password.
+'''
+import secrets
 import string
 
-special = "!£$%&@#?"
-characters = "1234567890" + string.ascii_letters + special
-
-def checkNumber(userInput):
-    '''
-        parameter: userInput (a string)
-        Checks whether the input has entered a valid value (an integer).
-    '''
-    try:
-        integer = int(userInput) * 1
-        return integer
-    except:
-        TypeError
-        return -1
-        # Returned as it is a number that will not work when passed to the 
-        # generatePassword(integer) function
-
-def containsNumber(password):
-    '''
-        parameter: password (a string)
-        return True if the password generated contains a number.
-    '''
-    for i in range(0,len(password)):
-        try:
-            return int(password[i]) * 1 == int(password[i])
-        except:
-            ValueError
-            continue
-    return False
-
-def containsSpecial(password):
-    '''
-        parameter: password (a string)
-        return True if the password generated contains a special character.
-    '''
-    for i in range(0,len(password)):
-        if password[i] in special:
-            return True
-        else:
-            continue
-    return False
-
-def generatePassword(integer):
-    '''
-        parameter: integer (a whole number to indicate how many
-                   characters the user wants their generated
-                   password to be)
-        Generates a random password between 6 and 15 characters.
-    '''
-    password = ""
-    if checkNumber(integer) >= 6 and checkNumber(integer) <= 15:
-        for i in range(checkNumber(integer)):
-            password += characters[random.randint(0, len(characters)-1)]
-        if containsNumber(password) and containsSpecial(password) == True:
-            print("\nYour generated password is: " + password + "\n")
-        else:
-            password = password[0:len(password)-2] + str(random.randint(0,9)) + special[random.randint(0,len(special))]
-            print("\nYour generated password is: " + password + "\n")
-    else:
-        print("Please enter a number between 6 and 15.\n")
-
-print("To generate a random password, enter a number between 6 and 15 e.g. '7'")
-isDone = False
-while True:
-    try:
-        amountOfChars = int(input("Please enter the amount of characters for your password: "))
-        generatePassword(amountOfChars)
-    except:
-        TypeError
-        print("\nThere was an error. Please try again.\n")
-    finally:
-        while isDone == False:
-            userInput = input("Do you want to generate a new password? Enter 'yes' (y) or 'no' (n): ")
-            if userInput.upper() == "YES" or userInput.upper() == "Y":
-                isDone = True
-                continue
-            elif userInput.upper() == "NO" or userInput.upper() == "N":
-                isDone = True
-                input("Press the Enter key to quit ")
-                exit()
+class PasswordGenerator:
+    def __init__(self, num_passwords_to_generate=5) -> None:
+        '''
+        Params:
+        num_passwords_to_generate (int) - how many passwords to generate and display to the user
+        '''
+        self.num_passwords_to_generate = num_passwords_to_generate
+        self.letters = string.ascii_lowercase
+        self.numbers = string.digits
+        self.symbols = string.punctuation
+        
+    def get_num_passwords_to_generate(self) -> int:
+        return self.num_passwords_to_generate
+    
+    def generate_password(self, length=8, **kwargs) -> list[str]:
+        '''
+        Generates self.num_passwords_to_generate passwords
+        
+        Params (Keyword arguments):
+        num_numbers: int, num_uppercase: int, num_symbols: int
+        
+        num_numbers (int) - the amount of numbers in the password(s)
+        num_uppercase (int) - the amount of numbers in the password(s)
+        num_symbols (int) - the number of symbols in the password(s)
+        length (int) - the amount of total characters in the password(s)
+        
+        The length of each password is 8 as a default
+        
+        Returns a list of passwords
+        '''
+        passwords = []
+        index_used = []
+        
+        for i in range(self.num_passwords_to_generate):
+            if len(kwargs.items()) == 0:
+                passwords.append("".join([secrets.choice(self.letters) for j in range(length)]))
             else:
-                print("There was a problem with your input.\n")
-        isDone = False
+                password = [secrets.choice(self.letters) for i in range(length)]
+                print(password)
+                if kwargs.get("num_numbers") != None:
+                    for j in range(kwargs.get("num_numbers")):
+                        index = secrets.choice([k for k in range(length)])
+                        print(index)
+                        password[index] = secrets.choice(self.numbers)
+                        index_used.append(index)
+                
+                if kwargs.get("num_uppercase") != None:
+                    for j in range(kwargs.get("num_uppercase")):
+                        index = secrets.choice([k for k in range(length) if index_used.count(k) == 0])
+                        print(index)
+                        password[index] = password[index].upper()
+                        
+                if kwargs.get("num_symbols") != None:
+                    for j in range(kwargs.get("num_symbols")):
+                        index = secrets.choice([k for k in range(length) if index_used.count(k) == 0])
+                        print(index)
+                        password[index] = secrets.choice(self.symbols)
+                        
+                password = "".join([secrets.choice(self.letters)])
+                passwords.append(password)
+                index_used.clear()
+        
+        return passwords
+    
