@@ -42,28 +42,35 @@ class PasswordGenerator:
                 passwords.append("".join([secrets.choice(self.letters) for j in range(length)]))
             else:
                 password = [secrets.choice(self.letters) for i in range(length)]
-                print(password)
+                
+                # Check constraints:
+                constraints = kwargs.get("num_numbers", 0) + kwargs.get("num_uppercase", 0) + kwargs.get("num_symbols", 0)
+                if length < constraints:
+                    raise ValueError(f"The password is set to be {length} characters long, but the amount of numbers, uppercase letters and symbols to be added into the password is {constraints}.")
+                
+                # Check each of the values of the extra arguments added
                 if kwargs.get("num_numbers") != None:
                     for j in range(kwargs.get("num_numbers")):
-                        index = secrets.choice([k for k in range(length)])
-                        print(index)
-                        password[index] = secrets.choice(self.numbers)
+                        index = secrets.choice([k for k in range(length) if index_used.count(k) == 0])
+                        password.pop(index)
+                        password.insert(index, secrets.choice(self.numbers))
                         index_used.append(index)
                 
                 if kwargs.get("num_uppercase") != None:
                     for j in range(kwargs.get("num_uppercase")):
                         index = secrets.choice([k for k in range(length) if index_used.count(k) == 0])
-                        print(index)
-                        password[index] = password[index].upper()
+                        password.pop(index)
+                        password.insert(index, secrets.choice(self.letters).upper())
+                        index_used.append(index)
                         
                 if kwargs.get("num_symbols") != None:
                     for j in range(kwargs.get("num_symbols")):
                         index = secrets.choice([k for k in range(length) if index_used.count(k) == 0])
-                        print(index)
-                        password[index] = secrets.choice(self.symbols)
+                        password.pop(index)
+                        password.insert(index, secrets.choice(self.symbols))
+                        index_used.append(index)
                         
-                password = "".join([secrets.choice(self.letters)])
-                passwords.append(password)
+                passwords.append("".join(password))
                 index_used.clear()
         
         return passwords
