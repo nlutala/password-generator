@@ -1,8 +1,8 @@
 # password-generator
-A program that randomly generates a password of 6 to 15 characters (as specified by the user).
+A program that randomly generates password(s) according to the length of the password, amount of numbers, symbols and uppercase letters to include in the password (as specified by the user).
 
 ## Description
-This program was created as a small project to help me familiarise myself with string manipulation. 
+This program was created as a small project to help me to become familiar with string manipulation, list comprehension and testing in Python. 
 
 ### Getting Started
 
@@ -14,13 +14,15 @@ This program was created as a small project to help me familiarise myself with s
 * Press the green code button and press "Download ZIP".
 
 #### Executing program
-* Once you have downloaded the program, you can open it with a suitable text editor of your choice and run it.
+* Once you have downloaded the program, open your terminal and navigate to the directory with the passwordGenerator.py file
+* Then type ```python passwordGenerator.py``` and start generating passwords!
 
 #### Author
 Nathan Lutala, nlutala
 
 ## Version History
-* 0.1 - First release
+* 0.1 - First release (July 21, 2021 - commit: https://github.com/nlutala/password-generator/tree/2f922fbebc89452fe651ac184be62a31577b4d4e)
+* 0.2 - New release (June 13, 2024)
 
 ## Acknowledgements
 Inspiration for writing this readme
