@@ -49,21 +49,21 @@ class PasswordGenerator:
                     raise ValueError(f"The password is set to be {length} characters long, but the amount of numbers, uppercase letters and symbols to be added into the password is {constraints}.")
                 
                 # Check each of the values of the extra arguments added
-                if kwargs.get("num_numbers") != None:
+                if kwargs.get("num_numbers", 0) != 0:
                     for j in range(kwargs.get("num_numbers")):
                         index = secrets.choice([k for k in range(length) if index_used.count(k) == 0])
                         password.pop(index)
                         password.insert(index, secrets.choice(self.numbers))
                         index_used.append(index)
                 
-                if kwargs.get("num_uppercase") != None:
+                if kwargs.get("num_uppercase", 0) != 0:
                     for j in range(kwargs.get("num_uppercase")):
                         index = secrets.choice([k for k in range(length) if index_used.count(k) == 0])
                         password.pop(index)
                         password.insert(index, secrets.choice(self.letters).upper())
                         index_used.append(index)
                         
-                if kwargs.get("num_symbols") != None:
+                if kwargs.get("num_symbols", 0) != 0:
                     for j in range(kwargs.get("num_symbols")):
                         index = secrets.choice([k for k in range(length) if index_used.count(k) == 0])
                         password.pop(index)
@@ -74,4 +74,32 @@ class PasswordGenerator:
                 index_used.clear()
         
         return passwords
-    
+
+
+if __name__ == "__main__":
+    while True:
+        num_passwords = int(input("How many passwords would you like to generate?: "))
+        length = int(input("How many characters would you like your password(s) to have?: "))
+        num_numbers = int(input("How many numbers would you like in your password(s)?: "))
+        num_uppercase = int(input("How many uppercase letters would you like in your password(s)?: "))
+        num_symbols = int(input("How many special characters or symbols would you like in your password(s)?: "))
+        
+        pg = PasswordGenerator(num_passwords)
+        
+        print("\nPlease find your generated passwords below: ")
+        for password in pg.generate_password(length, num_numbers=num_numbers, num_uppercase=num_uppercase, num_symbols=num_symbols):
+            print(password)
+                
+        isDone = False
+        
+        while isDone == False:
+            userInput = input("\nDo you want to generate a new password? Enter 'yes' (y) or 'no' (n): ")
+            if userInput.upper() == "YES" or userInput.upper() == "Y":
+                isDone = True
+                continue
+            elif userInput.upper() == "NO" or userInput.upper() == "N":
+                isDone = True
+                input("\nPress the Enter key to quit ")
+                exit()
+            else:
+                print("\nThere was a problem with your input.\n")
